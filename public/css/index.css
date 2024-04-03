@@ -1,0 +1,99 @@
+@font-face{
+    font-family: Spotify;
+    src:url("/Assets/CircularSpotifyTxT-Book.ttf");
+}
+
+body{
+    font-family:"Spotify"
+}
+.navbar-container{
+    background:white;
+    box-shadow:0px 4px 8px #EAEDEEBE;
+}
+.navbar-brand{
+    letter-spacing: 3px;
+}
+.mainpart-container{
+    background-image: url("/Assets/Pattern.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height:800px;
+    width:100%;
+    position:relative;
+}
+.mainpart-container > img{
+    height:100%;
+    width: 100%;
+    position:absolute;
+}
+.mainpart-container > .container{
+    min-height:100%;
+    /* background:green; */
+    width:100%;
+}
+.org-name{
+    /* background: red;; */
+    font-size:35px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+}
+.hc-btn{
+    border-radius: 5px;
+    background:#606C38;
+    color:white;
+    border:none;
+    font-weight: 200;
+    font-size:14px;
+}
+.searchItem{
+    width:700px;
+    border-radius: 100px;
+    border:0.5px solid #cccccc;
+}
+input{
+    font-family: "SPotify";
+    font-weight: 200;
+    color:#606C38;
+}
+.searchItem + a > i {
+    color:#606C38;
+    font-weight: 700;
+}
+.searchItem :hover{
+
+}
+.org-inst{
+    color:#606C38;
+    font-weight: 600;
+}
+.mainpage-btns{
+    width:500px;
+    /* background:green; */
+    flex-direction: column;
+    border-radius: 100px;
+}
+.mainpage-btns > button{
+    border-radius: 100px;
+}
+.mainpage-btns > button:nth-child(1){
+    background:#606C38;
+    color:white;
+    border: none;
+}
+.mainpage-btns > button:nth-child(2){
+    background:white;
+    color:#606C38;
+    border:1px solid #606C38;
+}
+button:hover{
+    scale: 1.02;
+    transition: 0.2s;
+}
+#addProduct{
+    width:300px;
+    color:white;
+    border:none;
+    background:#606C38;
+}
