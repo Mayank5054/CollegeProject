@@ -30,11 +30,11 @@
         <div class="container">
             <p class="org-name pt-5 pb-5 ">Welcome ,<br> Avinash Fashion Studio</p>
             <p class="org-inst pt-3 pb-3">Use Below Bar To Search or Update Order</p>
-            <form style="position:relative " class="d-flex">
-                <input type="text" class="searchItem p-2 ps-5" placeholder="Search Item">
-                <a data-bs-toggle="modal" data-bs-target="#modal1">
+            <form style="position:relative " class="d-flex" method="post" action="/getProduct" >
+                <input type="text" name="id" class="searchItem p-2 ps-5" placeholder="Search Item">
+                <input type="submit" >
                     <i class="fa fa-search " style="position: absolute;left:15px;top:12px;"> </i>
-                </a>
+            </input>
             </form>
             <p class="org-inst pt-5 pb-2 mt-5">Use Below Buttons To Create Or Update New Items</p>
             <div class="d-flex mainpage-btns">
@@ -147,24 +147,24 @@
                     <p class="h3 ps-5">Add A New Incentive</p>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form method="post" enctype="multipart/form-data" action="/addProduct">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" name="formId1" id="formId1" placeholder="" />
+                            <input type="text" class="form-control" name="productName" id="formId1" placeholder="" />
                             <label for="formId1">Product Name</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <textarea type="text" class="form-control" name="formId1" id="formId2"
+                            <textarea type="text" class="form-control" name="productDescription" id="formId2"
                                 placeholder="Product Details" rows="5" style="height:auto"></textarea>
                             <label for="formId1">Product Details</label>
-
+-
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Upload Photos </label>
-                            <input type="file" class="form-control" name="" id="" placeholder=""
+                            <input type="file" class="form-control" name="img" id="" placeholder=""
                                 aria-describedby="fileHelpId" accept="image/*" />
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" name="formId3" id="formId3"
+                            <input type="text" class="form-control" name="rent" id="formId3"
                                 placeholder="Rental Price" />
                             <label for="formId1">
                                 Rental Price
@@ -173,11 +173,11 @@
                         <div class="mb-3 d-inline">
                             <label for="" class="form-label">Approximate Colors</label>
                             <div>
-                                <input type="color" class="form-control p-0 d-inline-block" id=""
+                                <input type="color" class="form-control p-0 d-inline-block" id="" name="col1"
                                     aria-describedby="helpId" placeholder="" style="height:100px;width:100px" />
-                                <input type="color" class="form-control p-0 d-inline-block " id=""
+                                <input type="color" class="form-control p-0 d-inline-block " id="" name="col2"
                                     aria-describedby="helpId" placeholder="" style="height:100px;width:100px" />
-                                <input type="color" class="form-control p-0 d-inline-block" id=""
+                                <input type="color" class="form-control p-0 d-inline-block" id="" name="col3"
                                     aria-describedby="helpId" placeholder="" style="height:100px;width:100px" />
                             </div>
                         </div>
@@ -213,16 +213,16 @@
                         </div>
                         <div class="mt-4">
                             <label for="" class="form-label">Select Garment Type</label>
-                            <select class="form-select form-select-lg" name="" id="formId4" style="font-size:16px">
-                                <option selected>Blazer</option>
-                                <option value="">Suit</option>
-                                <option value="">Kurta</option>
-                                <option value="">Jodhpuri</option>
+                            <select class="form-select form-select-lg" name="garmentType" id="formId4" style="font-size:16px">
+                                <option value="Blazer" selected>Blazer</option>
+                                <option value="Suit">Suit</option>
+                                <option value="Kurta">Kurta</option>
+                                <option value="Jodhpuri">Jodhpuri</option>
                             </select>
                         </div>
-                        <button type="button" onclick="addProduct()" class="btn btn-primary mt-3" id="addProduct2">
-                            Add Product
-                        </button>
+                        <input type="submit"  class="btn btn-primary mt-3" name="submit" id="addProduct2">
+                            <!-- Add Product -->
+                        
 
                     </form>
                 </div>
@@ -232,7 +232,6 @@
             </div>
         </div>
     </div>
-
 </body>
 
 </html>
