@@ -44,7 +44,22 @@ exports.getProduct = (req,res,next) => {
 
 
 exports.addOrder = (req,res,next) =>{
-
+    console.log(req.body);
+    const order = new Order({
+productId : req.body.id,
+date:req.body.formIddate,
+size:req.body.formId411,
+name:req.body.formId1,
+totalPayment:req.body.formId2,
+advancePayment:req.body.formId3,
+remaining:req.body.formId41,
+ description:req.body.formId5
+    });
+    order.save()
+    .then(result => {
+        res.render("orderPlaced.ejs");
+        console.log(result);
+    })
 }
 exports.checkAvailable = (req,res,next) => {
     // const order = new Order({
@@ -59,7 +74,7 @@ exports.checkAvailable = (req,res,next) => {
       
     
     // })
-console.log(req.body);
+console.log("REQ.BODY",req.body);
     console.log(req.body.formId1+"T00:00:00.000+00:00");
     console.log(req.body.id);
     Order.find({$and:[
@@ -67,14 +82,15 @@ console.log(req.body);
         {date:{$eq:req.body.formId1+"T00:00:00.000+00:00"}},
         {size:{$eq:req.body.formId4}}
     ]}).then(product=> {
-        if(product==null){
+        console.log("products",product);
+        if(product.length==0){
+            res.json({status:"available"});
         console.log("No Piece Available")
     }
     else{
+        res.json({status:"notAvailable"});
         console.log("Data There Are");
         console.log(product);
     }
-    
     })
-   
 }

@@ -31,8 +31,8 @@
                         <p class="d-flex">
                             <button class="btn-close ms-auto" data-bs-dismiss="modal"></button>
                         </p>
-                        <form method="post" action="/checkAvailable">
-                            <input value="<%= id %>" name="id" hidden>
+                        <!-- <form method="post" action="/checkAvailable"> -->
+                            <input value="<%= id %>" name="id" hidden id="idProduct">
                             <div class="d-flex justify-content-center">
                                 <div class="form-floating mb-3 w-75">
                                     <input type="date" class="form-control w-100" name="formId1" id="formId1"
@@ -51,48 +51,91 @@
                                 </div>
                             </div>
                             <div>
-                                <button class="btn" style="background:#606C38;color:white;">Check
+                                <button class="btn" style="background:#606C38;color:white;" onclick="checkAvailability()">Check
                                     Availability</button>
                             </div>
 
 
-                        </form>
-                        <p class=" display-5 h5 mt-5">Available</p>
-                        <p>Fill below to Book On Available Date</p>
-                        <form class="mt-5" method="post" action="/addOrder">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" name="formId1" id="rentName"
-                                    placeholder="" />
-                                <label for="formId1">Name</label>
-                            </div>
-                            <div class="d-flex">
+                        <!-- </form> -->
+                        <div id="available" style="display: none;">
+                            <p class=" display-5 h5 mt-5">Available</p>
+                            <p>Fill below to Book On Available Date</p>
+                            <form class="mt-5" method="post" action="/addOrder">
+                                <input value="<%= id %>" name="id" hidden id="idProduct">
+                                <input name="formId411" type="text" id="formId411" hidden>
+                                <input name="formIddate" type="date" id="formIddate" hidden>
                                 <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" name="formId1" id="totalPayment"
+                                    <input type="text" class="form-control" name="formId1" id="rentName"
                                         placeholder="" />
-                                    <label for="formId1">Total Payment</label>
+                                    <label for="formId1">Name</label>
                                 </div>
-                                <div class="form-floating mb-3 ms-3">
-                                    <input type="number" class="form-control" name="formId1" id="advancePayment"
-                                        placeholder="" />
-                                    <label for="formId1">Advance</label>
+                                <div class="d-flex">
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control" name="formId2" id="totalPayment"
+                                            placeholder="" />
+                                        <label for="formId1">Total Payment</label>
+                                    </div>
+                                    <div class="form-floating mb-3 ms-3">
+                                        <input type="number" class="form-control" name="formId3" id="advancePayment"
+                                            placeholder="" />
+                                        <label for="formId1">Advance</label>
+                                    </div>
+                                    <div class="form-floating mb-3 ms-3">
+                                        <input type="text" class="form-control" name="formId41" id="remainingPayment"
+                                            placeholder="" />
+                                        <label for="formId1">Remaining</label>
+                                    </div>
+                                 
                                 </div>
-                                <div class="form-floating mb-3 ms-3">
-                                    <input type="text" class="form-control" name="formId1" id="remainingPayment"
-                                        placeholder="" />
-                                    <label for="formId1">Remaining</label>
+                                <div class="mb-2">
+                                    <label for="" class="form-label"></label>
+                                    <textarea class="form-control" name="formId5" id="" rows="4"
+                                        placeholder="Any Size Changes Or Note For Order"></textarea>
                                 </div>
-                             
-                            </div>
-                            <div class="mb-2">
-                                <label for="" class="form-label"></label>
-                                <textarea class="form-control" name="" id="" rows="4"
-                                    placeholder="Any Size Changes Or Note For Order"></textarea>
-                            </div>
-
-                            <button class="btn w-100 mt-3" style="background:#606C38;color:white;">Book On Above
-                                Date</button>
-                        </form>
+    
+                                <button class="btn w-100 mt-3" style="background:#606C38;color:white;">Book On Above
+                                    Date</button>
+                            </form>
+                        </div>
+                        <div id="notAvailable" style="display: none;">
+                            <p class=" display-5 h5 mt-5"> Not Available</p>
+                                                    </div>
                     </div>
-                </div>
+                        </div>
+   
+                       
     </body>
 </html>
+<script>
+
+    function checkAvailability(){
+        const date = document.getElementById("formId1").value;
+        const size = document.getElementById("formId4").value;
+        const id = document.getElementById("idProduct").value;
+        console.log(date,size);
+        console.log("Check Called");
+        fetch("http://localhost:5354/checkAvailable",{
+            method:"POST",
+            headers: {
+                "Accept" : "application/json",
+                "Content-Type" : "application/json"
+            },
+            body:JSON.stringify({id:id,formId1:date,formId4:size}),
+        })
+    .then(res => res.json())
+    .then(data => {
+        if(data.status == "available"){
+            document.getElementById("formId411").value = size;
+            document.getElementById("formIddate").value = date;
+            document.getElementById("available").style.display="block";
+            document.getElementById("notAvailable").style.display="none";
+        }
+        else{
+            document.getElementById("available").style.display="none";
+            document.getElementById("notAvailable").style.display="block";
+        }
+        console.log(data);
+    })
+    }
+    
+</script>

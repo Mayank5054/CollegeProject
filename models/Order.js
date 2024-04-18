@@ -5,20 +5,29 @@ const OrderModel = new Schema({
     productId:{
         type: Schema.Types.ObjectId,
         ref: "Product",
-        required: true
+        // required: true
     },
     date:{
         type:Schema.Types.Date,
-        required:true
+        // required:true
     },
-    size:String,
+    name:{
+        type:String
+    },
+    size:{
+        type:String
+    },
     totalPayment:{
         type:Schema.Types.Number,
-        required:true
     },
     advancePayment:{
         type:Schema.Types.Number,
-        required:true
+    },
+    description :{
+        type:String
+    },
+    remaining:{
+        type:Schema.Types.Number
     }
 })
 
