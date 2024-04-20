@@ -28,18 +28,19 @@
     </div>
     <div class="container-fluid mainpart-container">
         <div class="container">
-            <p class="org-name pt-5 pb-5 ">Welcome ,<br> Avinash Fashion Studio</p>
+            <p class="org-name pt-5 pb-5 ">Welcome ,<br> <%=name %></p>
             <p class="org-inst pt-3 pb-3">Use Below Bar To Search or Update Order</p>
             <form style="position:relative " class="d-flex" method="post" action="/getProduct" >
                 <input type="text" name="id" class="searchItem p-2 ps-5" placeholder="Search Item">
-                <input type="submit" >
-                    <i class="fa fa-search " style="position: absolute;left:15px;top:12px;"> </i>
+                    <button type="submit" class="d-flex align-items-center justify-content-center p-2 ms-3" style="border-radius: 100px;background:#606C38;">
+                        <i class="fa fa-search " style="color:white;"> </i>
+                    </button>
             </input>
             </form>
             <p class="org-inst pt-5 pb-2 mt-5">Use Below Buttons To Create Or Update New Items</p>
             <div class="d-flex mainpage-btns">
                 <button class="p-2" data-bs-toggle="modal" data-bs-target="#modal2">Add New Garment</button>
-                <button class="mt-4 p-2">Update Existing Garment</button>
+                <!-- <button class="mt-4 p-2">Update Existing Garment</button> -->
             </div>
 
         </div>
@@ -236,9 +237,9 @@
 
 </html>
 <script>
-    window.onload = function () {
-        $("#modal1").modal("show");
-    }
+    // window.onload = function () {
+    //     $("#modal1").modal("show");
+    // }
     const data = [];
     function addProduct() {
         const name = $("#formId1");

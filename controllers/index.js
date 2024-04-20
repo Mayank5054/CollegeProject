@@ -2,11 +2,13 @@ const { mongo } = require("mongoose");
 const Order = require("../models/Order");
 const productModel = require("../models/Product");
 const mongoose = require("mongoose");
+const User = require("./../models/Users");
 exports.addProduct = (req,res,next) =>{
     console.log(req.body);
+    console.log("add Products" ,req.user);
     console.log(req.file);
     const product = new productModel({
-        userId:"65e0c1803e97474f5fd9d9a5",
+        userId:req.cookies.id,
         productName:req.body.productName,
         productDetails:req.body.productDescription,
         imageUrl:req.file.path,
@@ -16,7 +18,7 @@ exports.addProduct = (req,res,next) =>{
         category:req.body.garmentType
     });
     product.save().then((result)=>{
-        console.log(result);
+        res.redirect("./");
     })
 }
 
@@ -57,23 +59,12 @@ remaining:req.body.formId41,
     });
     order.save()
     .then(result => {
-        res.render("orderPlaced.ejs");
+        res.redirect("./../views/index.ejs");
         console.log(result);
     })
 }
 exports.checkAvailable = (req,res,next) => {
-    // const order = new Order({
-    //     productId: new mongoose.Types.ObjectId("66103a3116aaa591c626a1e7"),
-    //     date:"2024-04-11",
-    //     size:'XL',
-    //     totalPayment:500,
-    //     advancePayment:250
-    // })
-    // order.save()
-    // .then(product => {
-      
-    
-    // })
+  
 console.log("REQ.BODY",req.body);
     console.log(req.body.formId1+"T00:00:00.000+00:00");
     console.log(req.body.id);
@@ -92,5 +83,42 @@ console.log("REQ.BODY",req.body);
         console.log("Data There Are");
         console.log(product);
     }
+    })
+}
+
+exports.getLogin = (req,res,next) => {
+    res.render("./login.ejs");
+}
+
+exports.postLogin = (req,res,next) => {
+    User.findOne({
+        $and:[
+            {email:{$eq:req.body.email}}
+            ,{password:{$eq:req.body.password}}
+        ]
+    }).then(user => {
+console.log(user);
+        if(user==null){
+           res.render("./../views/login.ejs")
+        }
+        else{
+            // req.user = user;
+            res.cookie("id",user._id);
+            res.cookie("name",user.email);
+            // localStorage.setItem("id",user._id);
+            res.render("./../views/index.ejs",{
+                name:user.email
+            });
+        }
+
+    });
+   
+}
+
+
+exports.getAllProducts = (req,res,next) => {
+    productModel.find({userId:req.cookies.id})
+    .then(products => {
+        console.log(products);
     })
 }

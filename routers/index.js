@@ -1,8 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const indexController = require("../controllers/index");
-router.post("/addProduct",indexController.addProduct);
+const isAuth = require("../Auth/isLogin");
+router.post("/addProduct",isAuth,indexController.addProduct);
 router.post("/getProduct",indexController.getProduct);
 router.post("/addOrder",indexController.addOrder);
 router.post("/checkAvailable",indexController.checkAvailable);
+router.get("/login",indexController.getLogin);
+router.post("/postLogin",indexController.postLogin);
+router.get("/allProducts",indexController.getAllProducts);
 module.exports = router;
